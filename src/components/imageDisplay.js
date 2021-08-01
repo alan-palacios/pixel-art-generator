@@ -1,8 +1,8 @@
 
 function ImageDisplay() {
   return (
-    <div className="bg-purple-700 h-full flex p-10 ">
-      Image Display
+    <div className=" flex p-10 ">
+      <canvas id="image" className="block border-4 border-gray-10 bg-cover "></canvas>
     </div>
   );
 }
