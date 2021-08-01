@@ -8,9 +8,13 @@ function ImageSettings(props) {
     <div className=" h-full flex-col flex font-montserrat-m">
       <Title title="Image Settings" />
         <div className="flex space-x-10" >
-          <InputText label="Width" size="w-40"/>
-          <InputText label="Height" size="w-40"/>
-          <InputCheckbox inputName="Transparency" 
+          <InputText label="Width" size="w-40" name="width" 
+                          value={props.imageSettings.width} 
+                          inputChangeHandler={props.inputChangeHandler}/>
+          <InputText label="Height" size="w-40" name="height" 
+                          value={props.imageSettings.height} 
+                          inputChangeHandler={props.inputChangeHandler}/>
+          <InputCheckbox label="Transparency" 
                           value={props.imageSettings.transparency} 
                           name="transparency"
                           checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>

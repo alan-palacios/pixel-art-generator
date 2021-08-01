@@ -12,6 +12,7 @@ class Home extends React.Component {
     this.inputChangeHandler = this.inputChangeHandler.bind(this);
     this.checkboxChangeHandler = this.checkboxChangeHandler.bind(this);
     this.inputUpdateCanvas = this.inputUpdateCanvas.bind(this);
+    this.checkboxUpdateCanvas = this.checkboxUpdateCanvas.bind(this);
     this.state = {
       seed: "seed",
       pixelsWidth:600,
@@ -27,7 +28,8 @@ class Home extends React.Component {
       ],
       width:200,
       height:100,
-      transparency:true
+      transparency:true,
+      grayScale:true
     }
   }
   
@@ -40,6 +42,9 @@ class Home extends React.Component {
   
   inputUpdateCanvas(e){
     this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
+  }
+  checkboxUpdateCanvas(e){
+    this.setState({ [e.target.name]: e.target.checked }, ()=> this.renderCanvas());
   }
 
   renderCanvas =()=>{
@@ -74,7 +79,7 @@ class Home extends React.Component {
             </pre>
           </div>
           <Separator/>
-          <NoiseSettings noiseSettings={this.state} inputChangeHandler={this.inputUpdateCanvas}/>
+          <NoiseSettings noiseSettings={this.state} inputChangeHandler={this.inputUpdateCanvas} checkboxChangeHandler={this.checkboxUpdateCanvas} />
 
         </div>
 

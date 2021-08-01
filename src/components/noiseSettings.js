@@ -1,4 +1,5 @@
 import ColorPicker from "./color-picker";
+import InputCheckbox from "./input-checkbox";
 
 const { default: InputRange } = require("./input-range");
 const { default: InputText } = require("./input-text");
@@ -10,35 +11,33 @@ function NoiseSettings(props) {
       <Title title="Noise Settings" />
       <form className="pt-5 font-montserrat-m">
         <InputText label="Seed" name="seed"
-                  renderCanvas={props.renderCanvas}
                   value={props.noiseSettings.seed}
                   inputChangeHandler={props.inputChangeHandler}/>
 
         <div className="flex space-x-10" >
           <InputText label="Width" name="pixelsWidth"
-                    renderCanvas={props.renderCanvas}
                     value={props.noiseSettings.pixelsWidth}
                     inputChangeHandler={props.inputChangeHandler}/>
 
           <InputText label="Height" name="pixelsHeight" 
-                    renderCanvas={props.renderCanvas}
                     value={props.noiseSettings.pixelsHeight}
                     inputChangeHandler={props.inputChangeHandler}/>
         </div>
         <InputRange label="Octaves"  name="octaves" min={1} max={15} step={1} 
                     value={props.noiseSettings.octaves}
-                    renderCanvas={props.renderCanvas}
                     inputChangeHandler={props.inputChangeHandler}  />
 
         <InputRange label="Amplitude" name="amplitude" min={0.1} max={50} step={0.1} 
                     value={props.noiseSettings.amplitude}
-                    renderCanvas={props.renderCanvas}
                     inputChangeHandler={props.inputChangeHandler} />
 
         <InputRange label="Persistence" name="persistence"  min={0.1} max={3} step={0.1} 
                     value={props.noiseSettings.persistence}
-                    renderCanvas={props.renderCanvas}
                     inputChangeHandler={props.inputChangeHandler} />
+        <InputCheckbox label="GrayScale" 
+                    value={props.noiseSettings.grayScale} 
+                    name="grayScale"
+                    checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>
         <div className="flex pt-10 text-gray-10">
           <label className="w-full">Breakpoint</label>
           <span className="min-w-1/5 mr-0 m-auto flex pl-5">
