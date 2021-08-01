@@ -25,7 +25,7 @@ function random() {
 function generatePerlinNoise(width, height, options) {
   options = options || {};
   var octaveCount = options.octaveCount || 4;
-  var amplitude = options.amplitude || 0.1;
+  var amplitude = options.amplitude || 0.4;
   var persistence = options.persistence || 0.2;
   var whiteNoise = generateWhiteNoise(width, height);
 

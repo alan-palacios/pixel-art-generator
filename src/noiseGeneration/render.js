@@ -3,8 +3,8 @@ module.exports={
     const canvas = document.getElementById('image');
     const ctx = canvas.getContext('2d');
     //setting dimensions
-    const canvasWidth = settings.noiseSettings.width;
-    const canvasHeight = settings.noiseSettings.height;
+    const canvasWidth = settings.pixelsWidth;
+    const canvasHeight = settings.pixelsHeight;
     ctx.canvas.width  = canvasWidth;
     ctx.canvas.height = canvasHeight;
 

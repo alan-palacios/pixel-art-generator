@@ -15,3 +15,12 @@
 }
 
 @tailwind utilities;
+
+
+input:checked + div svg {
+  @apply block;
+}
+
+body,html{
+  @apply bg-gray-70;
+}

@@ -9,60 +9,78 @@ import Render from "../noiseGeneration/render";
 class Home extends React.Component {
   constructor(props){
     super(props);
+    this.inputChangeHandler = this.inputChangeHandler.bind(this);
+    this.checkboxChangeHandler = this.checkboxChangeHandler.bind(this);
+    this.inputUpdateCanvas = this.inputUpdateCanvas.bind(this);
     this.state = {
-      settings:{
-        noiseSettings :{
-          seed: "seed",
-          width:600,
-          height:400,
-          octaves:7,
-          amplitude:4,
-          persistence:1,
-          colors:[
-            {
-              breakpoint: 0.2,
-              value: "#77CFE2"
-            }
-          ]
-
-        },
-        imageSettings:{
-          width:200,
-          height:100
+      seed: "seed",
+      pixelsWidth:600,
+      pixelsHeight:400,
+      octaves:7,
+      amplitude:4,
+      persistence:1,
+      colors:[
+        {
+          breakpoint: 0.2,
+          value: "#77CFE2"
         }
-      }
+      ],
+      width:200,
+      height:100,
+      transparency:true
     }
   }
   
-  forceRender = ()=>{
-    
-    Render.renderCanvas(this.state.settings, this.updateNoise());
+  inputChangeHandler(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  } 
+  checkboxChangeHandler(event) {
+    this.setState({ [event.target.name]: event.target.checked });
+  }
+  
+  inputUpdateCanvas(e){
+    this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
+  }
+
+  renderCanvas =()=>{
+    Render.renderCanvas(this.state, this.updateNoise());
   }
 
   updateNoise = () => {
-    const noiseSettings = this.state.settings.noiseSettings;
-    let noiseGen = Perlin.generatePerlinNoise(noiseSettings.width, noiseSettings.height, {
-      amplitude: noiseSettings.amplitude,
-      octaveCount: noiseSettings.octaves,
-      persistence: noiseSettings.persistence,
+    Perlin.setSeed(this.state.seed);
+    let noiseGen = Perlin.generatePerlinNoise(this.state.pixelsWidth, this.state.pixelsHeight, {
+      amplitude: this.state.amplitude,
+      octaveCount: this.state.octaves,
+      persistence: this.state.persistence,
     });
     return noiseGen;
   }
 
   componentDidMount(){
-    Render.renderCanvas(this.state.settings, this.updateNoise());
+    const randomSeed = Math.random();
+    this.setState({seed: randomSeed}, ()=> this.renderCanvas());
+
   }
   render () {
     return (
-    <div className=" h-full flex flex-grow flex-nowrap">
-      <div className="  w-full  p-10 overflow-hidden flex flex-col ">
-        <ImageDisplay />
-        <button onClick={this.forceRender} className="bg-gray-50 p-5">Render</button>
-        <ImageSettings />
-      </div>
-      <Separator/>
-      <NoiseSettings />
-    </div>
+      <React.Fragment>
+        <div className=" h-full flex flex-grow flex-nowrap px-20">
+          <div className="  w-full  p-10 overflow-hidde flex flex-col ">
+            <button onClick={this.renderCanvas} className="bg-gray-50 p-3">Render</button>
+            <ImageDisplay  />
+            <ImageSettings imageSettings={this.state} inputChangeHandler={this.inputUpdateCanvas} checkboxChangeHandler={this.checkboxChangeHandler} />
+            <pre className="block text-gray-10 mt-10">
+              {JSON.stringify(this.state, null, 2)}
+            </pre>
+          </div>
+          <Separator/>
+          <NoiseSettings noiseSettings={this.state} inputChangeHandler={this.inputUpdateCanvas}/>
+
+        </div>
+
+      </React.Fragment>
+
+
     )
   }
 }
