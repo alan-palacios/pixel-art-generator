@@ -1,7 +1,11 @@
-import InputButton from "./button";
+import InputButton from "./input-button";
 import InputCheckbox from "./input-checkbox";
 import InputText from "./input-text";
 import Title from "./title";
+import downloadIcon from '@iconify/icons-fa-solid/download';
+import fileImport from '@iconify/icons-fa-solid/file-import';
+import fileExport from '@iconify/icons-fa-solid/file-export';
+import InputFile from "./input-file";
 
 function ImageSettings(props) {
   return (
@@ -20,9 +24,9 @@ function ImageSettings(props) {
                           checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>
         </div>
         <div className="flex space-x-10" >
-          <InputButton name="Download" size="w-40" />
-          <InputButton name="Export" size="w-40" />
-          <InputButton name="Import" size="w-40" />
+          <InputButton label="Download" size="w-40" onClick={props.download} icon={downloadIcon}/>
+          <InputButton  label="Export" size="w-40" onClick={props.exportSettings} icon={fileExport} />
+          <InputFile label="Import" size="w-72" fileChangeHandler={props.importSettings} icon={fileImport}/>
         </div>
 
     </div>

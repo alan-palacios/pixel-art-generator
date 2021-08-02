@@ -3,7 +3,6 @@ import ImageSettings from "./imageSettings";
 import NoiseSettings from "./noiseSettings";
 import Separator from "./separator";
 import React from "react";
-import Perlin from "../noiseGeneration/perlin-noise";
 import Render from "../noiseGeneration/render";
 
 class Home extends React.Component {
@@ -14,37 +13,45 @@ class Home extends React.Component {
     this.inputUpdateCanvas = this.inputUpdateCanvas.bind(this);
     this.checkboxUpdateCanvas = this.checkboxUpdateCanvas.bind(this);
     this.colorUpdateCanvas = this.colorUpdateCanvas.bind(this);
+    this.generateSeed = this.generateSeed.bind(this);
+    this.exportSettings = this.exportSettings.bind(this);
+    this.importSettings = this.importSettings.bind(this);
     this.state = {
       seed: "seed",
       pixelsWidth:600,
       pixelsHeight:400,
       octaves:7,
       amplitude:4,
-      persistence:1,
+      persistence:0.6,
       colors:[
         {
           breakpoint: 0,
-          value: "#77CFE2"
+          value: "#75bbee"
         },
         {
-          breakpoint: 0.4,
-          value: "#D3FA85"
+          breakpoint: 0.46,
+          value: "#f7e988"
+        },
+        {
+          breakpoint: 0.6,
+          value: "#c0dd5e"
         }
       ],
       width:200,
       height:100,
       transparency:true,
-      grayScale:true
+      grayScale:false
     }
   }
-  
+  componentDidMount(){
+    this.generateSeed();
+  } 
   inputChangeHandler(event) {
     this.setState({ [event.target.name]: event.target.value });
   } 
   checkboxChangeHandler(event) {
     this.setState({ [event.target.name]: event.target.checked });
   }
-  
   inputUpdateCanvas(e){
     this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
   }
@@ -53,37 +60,47 @@ class Home extends React.Component {
   }
 
   colorUpdateCanvas(colorInput, breakpointInput,index){
-    // 1. Make a shallow copy of the items
     let colors = [...this.state.colors];
-    // 2. Make a shallow copy of the item you want to mutate
-    let item = {...colors[index]};
-    // 3. Replace the property you're intested in
-    item.value = colorInput.value;
-    item.breakpoint = breakpointInput.value;
-    // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+    let item = {
+      breakpoint: breakpointInput.value,
+      value: colorInput.value
+    };
     colors[index] = item;
-    // 5. Set the state to our new copy
-    this.setState({colors});
+    this.setState({colors}, ()=> this.renderCanvas() );
   }
+
   renderCanvas =()=>{
-    Render.renderCanvas(this.state, this.updateNoise());
+    Render.renderCanvas(this.state);
   }
-
-  updateNoise = () => {
-    Perlin.setSeed(this.state.seed);
-    let noiseGen = Perlin.generatePerlinNoise(this.state.pixelsWidth, this.state.pixelsHeight, {
-      amplitude: this.state.amplitude,
-      octaveCount: this.state.octaves,
-      persistence: this.state.persistence,
-    });
-    return noiseGen;
-  }
-
-  componentDidMount(){
+  generateSeed(){
     const randomSeed = Math.random();
     this.setState({seed: randomSeed}, ()=> this.renderCanvas());
+  }
+
+  exportSettings(){
+    const jsonData = JSON.stringify(this.state, null, 2);
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(new Blob([jsonData], {
+      type: "text/plain"
+    }));
+    a.setAttribute("download", "settings.json");
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  importSettings(e){
+    var files = e.target.files;
+       var file = files[0];           
+       var reader = new FileReader();
+       reader.onload = (event)=> {
+          const data = JSON.parse(event.target.result);
+          this.setState({...data}, ()=> this.renderCanvas());
+       }
+       reader.readAsText(file)
 
   }
+
   render () {
     return (
       <React.Fragment>
@@ -91,7 +108,12 @@ class Home extends React.Component {
           <div className="  w-full  p-10 overflow-hidde flex flex-col ">
             <button onClick={this.renderCanvas} className="bg-gray-50 p-3">Render</button>
             <ImageDisplay  />
-            <ImageSettings imageSettings={this.state} inputChangeHandler={this.inputUpdateCanvas} checkboxChangeHandler={this.checkboxChangeHandler} />
+            <ImageSettings imageSettings={this.state} 
+                            inputChangeHandler={this.inputUpdateCanvas} 
+                            checkboxChangeHandler={this.checkboxChangeHandler}
+                            download={Render.saveImage}
+                            exportSettings={this.exportSettings}
+                            importSettings={this.importSettings}/>
             <pre className="block text-gray-10 mt-10">
               {JSON.stringify(this.state, null, 2)}
             </pre>
@@ -100,13 +122,11 @@ class Home extends React.Component {
           <NoiseSettings noiseSettings={this.state} 
                           inputChangeHandler={this.inputUpdateCanvas} 
                           checkboxChangeHandler={this.checkboxUpdateCanvas} 
-                          colorChangeHandler={this.colorUpdateCanvas} />
-
+                          colorChangeHandler={this.colorUpdateCanvas}
+                          generateSeed={this.generateSeed}/>
         </div>
 
       </React.Fragment>
-
-
     )
   }
 }

@@ -1,4 +1,5 @@
-exports.renderCanvas = renderCanvas;
+import Perlin from "./perlin-noise";
+import canvasToImage from "canvas-to-image";
   var canvas;
   var ctx;
   var image;
@@ -11,8 +12,26 @@ exports.renderCanvas = renderCanvas;
     }
   }
 
+  function saveImage(){
+    canvasToImage(canvas, {
+      name: 'generatedCanvas',
+      type: 'png',
+      quality: 1
+    });
+  }
+
   function swapBuffer() {
     ctx.putImageData(image, 0, 0);
+  }
+
+  function hexToRgb(hex) {
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16),
+      a: 255
+    } : null;
   }
 
   function getColorArray(colors, arr){
@@ -20,7 +39,13 @@ exports.renderCanvas = renderCanvas;
     console.log(arr[0]);*/
     let colorArr = new Array (arr.length);
     for (let index = 0; index < colorArr.length; index++) {
-      colorArr[index] = {r:183, g:108, b:213, a:255}; 
+      let currentColor = "#ffffff"; //{r:255, g:255, b:255, a:0};
+      colors.forEach(color => {
+        if (arr[index]>color.breakpoint) {
+          currentColor= color.value;
+        }       
+      });
+      colorArr[index] = hexToRgb(currentColor); 
     }
     return colorArr;
   }
@@ -32,7 +57,8 @@ exports.renderCanvas = renderCanvas;
     data[index + 3] = color.a;
   }
 
-	function renderCanvas(settings, noise){
+	function renderCanvas(settings){
+    const noise = updateNoise(settings);
     //setting dimensions
     const canvasWidth = settings.pixelsWidth;
     const canvasHeight = settings.pixelsHeight;
@@ -70,3 +96,15 @@ exports.renderCanvas = renderCanvas;
     //ctx.putImageData(id, 0, 0);
   }
 
+
+  const updateNoise = (settings) => {
+    Perlin.setSeed(settings.seed);
+    let noiseGen = Perlin.generatePerlinNoise(settings.pixelsWidth, settings.pixelsHeight, {
+      amplitude: settings.amplitude,
+      octaveCount: settings.octaves,
+      persistence: settings.persistence,
+    });
+    return noiseGen;
+  }
+  const Render = {renderCanvas, saveImage}
+  export default Render;

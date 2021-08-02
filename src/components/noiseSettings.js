@@ -1,5 +1,7 @@
+import InputButton from "./input-button";
 import ColorPicker from "./color-picker";
 import InputCheckbox from "./input-checkbox";
+import diceIcon from '@iconify/icons-fa-solid/dice';
 
 const { default: InputRange } = require("./input-range");
 const { default: InputText } = require("./input-text");
@@ -21,9 +23,14 @@ function NoiseSettings(props) {
     <div className="h-full p-10 pl-20 w-2/5">
       <Title title="Noise Settings" />
       <form className="pt-5 font-montserrat-m">
-        <InputText label="Seed" name="seed"
+        
+        <div className="flex space-x-10" >
+          <InputText label="Seed" name="seed"
                   value={props.noiseSettings.seed}
                   inputChangeHandler={props.inputChangeHandler}/>
+          <InputButton  size="w-1/6" icon={diceIcon} onClick={props.generateSeed } />
+        </div>
+
 
         <div className="flex space-x-10" >
           <InputText label="Width" name="pixelsWidth"

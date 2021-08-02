@@ -25,7 +25,7 @@ function ColorPicker(props) {
 
         <input type="color" id={`${props.dataKey}color`}
                 value={props.color} 
-                onChange={ () => props.colorChangeHandler(colorInput, breakpointText, props.dataKey)} 
+                onInput={ () => props.colorChangeHandler(colorInput, breakpointText, props.dataKey)} 
                 className="appearance-none block w-2/5 mt-2 
                           bg-gray-50 h-10 rounded-lg  overflow-hidden shadow-inner 
                             focus:outline-none focus:ring  ring-gray-90" />
