@@ -6,6 +6,17 @@ const { default: InputText } = require("./input-text");
 const { default: Title } = require("./title");
 
 function NoiseSettings(props) {
+
+  function renderColors(){
+    return props.noiseSettings.colors.map( (color,index) =>(
+            <ColorPicker key={index} min={0} max={1} step={0.01} size="" labelShow="hidden" 
+                        dataKey={index}
+                        color={color.value} 
+                        breakpoint={color.breakpoint}
+                        colorChangeHandler={props.colorChangeHandler}/>
+          ));
+  }
+
   return (
     <div className="h-full p-10 pl-20 w-2/5">
       <Title title="Noise Settings" />
@@ -44,9 +55,7 @@ function NoiseSettings(props) {
             <label className="m-auto ">Color</label>
           </span>
         </div>
-        <ColorPicker  defaultColor="#77CFE2" default={0.5} min={0} max={1} step={0.01} size="" labelShow="hidden"/>
-        <ColorPicker  defaultColor="#F8EC86" default={0.5} min={0} max={1} step={0.01} size="" labelShow="hidden"/>
-
+        {renderColors()}
       </form>
     </div>
   );

@@ -13,6 +13,7 @@ class Home extends React.Component {
     this.checkboxChangeHandler = this.checkboxChangeHandler.bind(this);
     this.inputUpdateCanvas = this.inputUpdateCanvas.bind(this);
     this.checkboxUpdateCanvas = this.checkboxUpdateCanvas.bind(this);
+    this.colorUpdateCanvas = this.colorUpdateCanvas.bind(this);
     this.state = {
       seed: "seed",
       pixelsWidth:600,
@@ -22,8 +23,12 @@ class Home extends React.Component {
       persistence:1,
       colors:[
         {
-          breakpoint: 0.2,
+          breakpoint: 0,
           value: "#77CFE2"
+        },
+        {
+          breakpoint: 0.4,
+          value: "#D3FA85"
         }
       ],
       width:200,
@@ -47,6 +52,19 @@ class Home extends React.Component {
     this.setState({ [e.target.name]: e.target.checked }, ()=> this.renderCanvas());
   }
 
+  colorUpdateCanvas(colorInput, breakpointInput,index){
+    // 1. Make a shallow copy of the items
+    let colors = [...this.state.colors];
+    // 2. Make a shallow copy of the item you want to mutate
+    let item = {...colors[index]};
+    // 3. Replace the property you're intested in
+    item.value = colorInput.value;
+    item.breakpoint = breakpointInput.value;
+    // 4. Put it back into our array. N.B. we *are* mutating the array here, but that's why we made a copy first
+    colors[index] = item;
+    // 5. Set the state to our new copy
+    this.setState({colors});
+  }
   renderCanvas =()=>{
     Render.renderCanvas(this.state, this.updateNoise());
   }
@@ -79,7 +97,10 @@ class Home extends React.Component {
             </pre>
           </div>
           <Separator/>
-          <NoiseSettings noiseSettings={this.state} inputChangeHandler={this.inputUpdateCanvas} checkboxChangeHandler={this.checkboxUpdateCanvas} />
+          <NoiseSettings noiseSettings={this.state} 
+                          inputChangeHandler={this.inputUpdateCanvas} 
+                          checkboxChangeHandler={this.checkboxUpdateCanvas} 
+                          colorChangeHandler={this.colorUpdateCanvas} />
 
         </div>
 
