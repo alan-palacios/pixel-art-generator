@@ -4,6 +4,7 @@ import NoiseSettings from "./noiseSettings";
 import Separator from "./separator";
 import React from "react";
 import Render from "../noiseGeneration/render";
+import ColorsSettings from "./colorsSettings";
 
 class Home extends React.Component {
   constructor(props){
@@ -16,6 +17,8 @@ class Home extends React.Component {
     this.generateSeed = this.generateSeed.bind(this);
     this.exportSettings = this.exportSettings.bind(this);
     this.importSettings = this.importSettings.bind(this);
+    this.addColor = this.addColor.bind(this);
+    this.removeColor = this.removeColor.bind(this);
     this.state = {
       seed: "seed",
       pixelsWidth:600,
@@ -37,10 +40,10 @@ class Home extends React.Component {
           value: "#c0dd5e"
         }
       ],
-      width:200,
-      height:100,
+      scale:2,
       transparency:true,
-      grayScale:false
+      grayScale:false,
+      tint: "#738d5f"
     }
   }
   componentDidMount(){
@@ -52,13 +55,13 @@ class Home extends React.Component {
   checkboxChangeHandler(event) {
     this.setState({ [event.target.name]: event.target.checked });
   }
+  
   inputUpdateCanvas(e){
     this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
   }
   checkboxUpdateCanvas(e){
     this.setState({ [e.target.name]: e.target.checked }, ()=> this.renderCanvas());
   }
-
   colorUpdateCanvas(colorInput, breakpointInput,index){
     let colors = [...this.state.colors];
     let item = {
@@ -67,6 +70,24 @@ class Home extends React.Component {
     };
     colors[index] = item;
     this.setState({colors}, ()=> this.renderCanvas() );
+  }
+  addColor(){
+    let colors = [...this.state.colors];
+    const lastItem = colors[colors.length-1];
+    let newBreakpoint = lastItem.breakpoint*1+(1-lastItem.breakpoint*1)/2;
+    newBreakpoint = Math.round(newBreakpoint * 100) / 100
+
+    let item = {
+      breakpoint: newBreakpoint,
+      value: lastItem.value
+    };
+    colors.push(item);
+    this.setState({colors}, ()=> this.renderCanvas() );   
+  }
+  removeColor(index){
+    let colors = [...this.state.colors];
+    colors.splice(index, 1);
+    this.setState({colors}, ()=> this.renderCanvas() );   
   }
 
   renderCanvas =()=>{
@@ -104,26 +125,39 @@ class Home extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <div className=" h-full flex flex-grow flex-nowrap px-20">
-          <div className="  w-full  p-10 overflow-hidde flex flex-col ">
-            <button onClick={this.renderCanvas} className="bg-gray-50 p-3">Render</button>
+        <div className=" h-full flex flex-grow flex-nowrap px-40">
+          {/* Left: image display and noise settings */}
+          <div className="  w-3/5  p-10 overflow-hidde flex flex-col ">
             <ImageDisplay  />
+            <NoiseSettings noiseSettings={this.state} 
+                          inputChangeHandler={this.inputUpdateCanvas} 
+                          checkboxChangeHandler={this.checkboxUpdateCanvas} 
+                          colorChangeHandler={this.colorUpdateCanvas}
+                          generateSeed={this.generateSeed}/>
+            <pre className="block text-gray-10 my-10 p-10">
+              {JSON.stringify(this.state, null, 2)}
+            </pre>
+          </div>
+          <Separator/>
+          {/* Right: colors settings and download, import and export */}
+          <div className="h-full  w-2/5  p-10 overflow-hidde flex flex-col ">
+            <ColorsSettings noiseSettings={this.state} 
+                            inputChangeHandler={this.inputUpdateCanvas} 
+                            checkboxChangeHandler={this.checkboxUpdateCanvas} 
+                            colorChangeHandler={this.colorUpdateCanvas}
+                            generateSeed={this.generateSeed}
+                            removeColor={this.removeColor}
+                            addColor={this.addColor}/>
+            <Separator vertical={true} />
             <ImageSettings imageSettings={this.state} 
                             inputChangeHandler={this.inputUpdateCanvas} 
                             checkboxChangeHandler={this.checkboxChangeHandler}
                             download={Render.saveImage}
                             exportSettings={this.exportSettings}
-                            importSettings={this.importSettings}/>
-            <pre className="block text-gray-10 mt-10">
-              {JSON.stringify(this.state, null, 2)}
-            </pre>
+                            importSettings={this.importSettings}
+                            forceRender={this.renderCanvas}/>
           </div>
-          <Separator/>
-          <NoiseSettings noiseSettings={this.state} 
-                          inputChangeHandler={this.inputUpdateCanvas} 
-                          checkboxChangeHandler={this.checkboxUpdateCanvas} 
-                          colorChangeHandler={this.colorUpdateCanvas}
-                          generateSeed={this.generateSeed}/>
+
         </div>
 
       </React.Fragment>

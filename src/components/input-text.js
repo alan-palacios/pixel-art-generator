@@ -5,7 +5,7 @@ function InputText(props) {
       <span className="text-gray-10 block">
         {props.label}
       </span>
-      <input type="text" value={props.value} onChange={ e => props.inputChangeHandler(e)} name={props.name}
+      <input type={props.type || 'text'} value={props.value} onChange={ e => props.inputChangeHandler(e)} name={props.name}
               className="appearance-none block w-full mt-2 
                         bg-gray-50 h-10 rounded-lg px-3 text-gray-10 shadow-inner leading-tight
                           focus:outline-none focus:ring  ring-gray-90" />

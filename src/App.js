@@ -1,4 +1,5 @@
 import './App.css';
+import Footer from './components/footer';
 import Home from './components/home';
 import Navbar from './components/navbar';
 
@@ -9,6 +10,7 @@ function App() {
       <div className="p-20 h-screen">
         <Home/>
       </div>
+      <Footer/>
     </div>
   );
 }

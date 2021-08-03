@@ -29,10 +29,7 @@ function InputFile(props) {
   }
 
   return (
-    <div className={`pt-5 ${props.size}`}>
-      <span className= {`text-gray-10 block ${props.labelShow}`}>
-        &nbsp;
-      </span>
+    <div className={`${props.size} my-auto mb-0`}>
       <div className="flex space-x-10">
         <button className="appearance-none block w-full mt-2 relative 
                                   bg-gray-10 h-10 rounded-lg px-3 text-gray-70  leading-tight

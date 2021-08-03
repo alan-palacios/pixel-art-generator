@@ -50,6 +50,20 @@ import canvasToImage from "canvas-to-image";
     return colorArr;
   }
 
+  function getTintArray(tint, arr){
+    const tintRGB = hexToRgb(tint); 
+    let colorArr = new Array (arr.length);
+    for (let index = 0; index < colorArr.length; index++) {
+      colorArr[index] = {
+        r: parseInt(arr[index]*tintRGB.r, 10),
+        g: parseInt(arr[index]*tintRGB.g, 10),
+        b: parseInt(arr[index]*tintRGB.b, 10),
+        a: 255
+      }
+    }
+    return colorArr;
+  }
+
   function drawPixel(index, color){
     data[index + 0] = color.r;
     data[index + 1] = color.g;
@@ -73,22 +87,19 @@ import canvasToImage from "canvas-to-image";
     data = image.data;
     
     //get respective color per pixel
-    const colorArr = getColorArray(settings.colors, noise);
+    let colorArr;
+    if (settings.grayScale) {
+      colorArr = getTintArray(settings.tint, noise);
+    } else {
+      colorArr = getColorArray(settings.colors, noise);
+    }
 
     //setting each pixel
     let noiseIndex = 0;
     for (var i = 0; i < canvasWidth*canvasHeight*4; i+=4) {
       //offset = (y * id.width + x) * 4;
-      if (settings.grayScale) {
-        let color;
-        color = {r:Math.floor(noise[noiseIndex] * 256), 
-                  g:Math.floor(noise[noiseIndex] * 256),
-                  b:Math.floor(noise[noiseIndex] * 256),
-                  a:255};
-        drawPixel(i,color);
-      }else{
         drawPixel(i, colorArr[noiseIndex]);
-      }
+
       noiseIndex++;
     }
 

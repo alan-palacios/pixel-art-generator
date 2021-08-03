@@ -1,5 +1,4 @@
 import InputButton from "./input-button";
-import ColorPicker from "./color-picker";
 import InputCheckbox from "./input-checkbox";
 import diceIcon from '@iconify/icons-fa-solid/dice';
 
@@ -9,61 +8,72 @@ const { default: Title } = require("./title");
 
 function NoiseSettings(props) {
 
-  function renderColors(){
-    return props.noiseSettings.colors.map( (color,index) =>(
-            <ColorPicker key={index} min={0} max={1} step={0.01} size="" labelShow="hidden" 
-                        dataKey={index}
-                        color={color.value} 
-                        breakpoint={color.breakpoint}
-                        colorChangeHandler={props.colorChangeHandler}/>
-          ));
-  }
-
   return (
-    <div className="h-full p-10 pl-20 w-2/5">
+    <div className="h-full p-10 pl-20 w-full">
       <Title title="Noise Settings" />
-      <form className="pt-5 font-montserrat-m">
+      <div className="pt-5 font-montserrat-m">
+        <div className="flex space-x-10" >
+          <div className="w-1/2">
+            <div className="flex space-x-10" >
+              <InputText label="Seed" name="seed" size="w-full"
+                      value={props.noiseSettings.seed}
+                      inputChangeHandler={props.inputChangeHandler}/>
+              <InputButton  size="w-1/6" icon={diceIcon} onClick={props.generateSeed } />
+            </div>
+
+
+            <div className="flex space-x-10" >
+              <InputText label="Width" name="pixelsWidth"
+                        value={props.noiseSettings.pixelsWidth}
+                        inputChangeHandler={props.inputChangeHandler}/>
+
+              <InputText label="Height" name="pixelsHeight" 
+                        value={props.noiseSettings.pixelsHeight}
+                        inputChangeHandler={props.inputChangeHandler}/>
+              <InputText label="scale" className="w-10" name="scale" 
+                          value={props.noiseSettings.scale} 
+                          inputChangeHandler={props.inputChangeHandler}/>
+            </div>
+
+            <div className="flex space-x-10" >
+              <InputCheckbox label="GrayScale" 
+                        value={props.noiseSettings.grayScale} 
+                        name="grayScale"
+                        checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>
+              <div className={`pt-5 w-40 relative `}>
+                <span className="text-gray-10 block">
+                  Tint
+                </span>
+                <input type="color" name="tint"
+                        value={props.noiseSettings.tint} 
+                        onInput={ props.inputChangeHandler} 
+                        className="appearance-none block w-full  mb-0 mt-2 
+                            bg-gray-50 h-10 rounded-lg  overflow-hidden shadow-inner 
+                              focus:outline-none focus:ring  ring-gray-90" />
+              </div> 
+              <InputCheckbox label="Transparency" 
+                          value={props.noiseSettings.transparency} 
+                          name="transparency"
+                          checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>             
+            </div>
+          </div>
+          <div className="w-1/2">
+            <InputRange label="Octaves"  name="octaves" min={1} max={15} step={1} 
+                        value={props.noiseSettings.octaves}
+                        inputChangeHandler={props.inputChangeHandler}  />
+
+            <InputRange label="Amplitude" name="amplitude" min={0.1} max={50} step={0.1} 
+                        value={props.noiseSettings.amplitude}
+                        inputChangeHandler={props.inputChangeHandler} />
+
+            <InputRange label="Persistence" name="persistence"  min={0.1} max={3} step={0.1} 
+                        value={props.noiseSettings.persistence}
+                        inputChangeHandler={props.inputChangeHandler} />
+          </div>
+        </div>
+
         
-        <div className="flex space-x-10" >
-          <InputText label="Seed" name="seed"
-                  value={props.noiseSettings.seed}
-                  inputChangeHandler={props.inputChangeHandler}/>
-          <InputButton  size="w-1/6" icon={diceIcon} onClick={props.generateSeed } />
-        </div>
-
-
-        <div className="flex space-x-10" >
-          <InputText label="Width" name="pixelsWidth"
-                    value={props.noiseSettings.pixelsWidth}
-                    inputChangeHandler={props.inputChangeHandler}/>
-
-          <InputText label="Height" name="pixelsHeight" 
-                    value={props.noiseSettings.pixelsHeight}
-                    inputChangeHandler={props.inputChangeHandler}/>
-        </div>
-        <InputRange label="Octaves"  name="octaves" min={1} max={15} step={1} 
-                    value={props.noiseSettings.octaves}
-                    inputChangeHandler={props.inputChangeHandler}  />
-
-        <InputRange label="Amplitude" name="amplitude" min={0.1} max={50} step={0.1} 
-                    value={props.noiseSettings.amplitude}
-                    inputChangeHandler={props.inputChangeHandler} />
-
-        <InputRange label="Persistence" name="persistence"  min={0.1} max={3} step={0.1} 
-                    value={props.noiseSettings.persistence}
-                    inputChangeHandler={props.inputChangeHandler} />
-        <InputCheckbox label="GrayScale" 
-                    value={props.noiseSettings.grayScale} 
-                    name="grayScale"
-                    checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>
-        <div className="flex pt-10 text-gray-10">
-          <label className="w-full">Breakpoint</label>
-          <span className="min-w-1/5 mr-0 m-auto flex pl-5">
-            <label className="m-auto ">Color</label>
-          </span>
-        </div>
-        {renderColors()}
-      </form>
+      </div>
     </div>
   );
 }

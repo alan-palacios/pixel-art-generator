@@ -5,8 +5,8 @@ function InputButton(props) {
     if (props.icon && props.label) {
       return  (
         <div className="flex content-between">
-          <div className="w-1/2">{props.label} </div>
-          <div className="w-1/2">
+          <div className="w-full">{props.label} </div>
+          <div className="">
             <Icon icon={props.icon} style={{fontSize: '24px'}} className="m-auto mr-0" />
           </div>
         </div>
@@ -21,10 +21,7 @@ function InputButton(props) {
   }
 
   return (
-    <div className={`pt-5 ${props.size}`}>
-      <span className= {`text-gray-10 block ${props.labelShow}`}>
-        &nbsp;
-      </span>
+    <div className={` ${props.className } my-auto mb-0`}>
       <button onClick={props.onClick} type="button" className="appearance-none block w-full mt-2 
                                 bg-gray-10 h-10 rounded-lg px-3 text-gray-70  leading-tight
                                  focus:outline-none focus:ring  ring-gray-90
