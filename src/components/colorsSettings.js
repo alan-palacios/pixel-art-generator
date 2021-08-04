@@ -18,7 +18,7 @@ function ColorsSettings(props) {
   }
 
   return (
-    <div className="p-5 mb-5 w-full h-full overflow-y-auto">
+    <div className="p-5 mb-5 w-full h-auto overflow-y-auto">
       <Title title="Colors Settings" />
       <div className=" font-montserrat-m">
         <div className="flex pt-10 text-gray-10">

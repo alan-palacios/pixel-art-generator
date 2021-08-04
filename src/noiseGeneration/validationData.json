@@ -7,12 +7,12 @@
   "pixelsWidth":{
 		"type":"int",
 		"min":1,
-		"max":500
+		"max":1920
 	},
   "pixelsHeight":{
 		"type":"int",
 		"min":1,
-		"max":500
+		"max":1080
 	},
 	"octaves":{
 		"type":"int",

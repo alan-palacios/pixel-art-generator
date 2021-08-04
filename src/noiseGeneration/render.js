@@ -14,7 +14,7 @@ import canvasToImage from "canvas-to-image";
 
   function saveImage(){
     canvasToImage(canvas, {
-      name: 'generatedCanvas',
+      name: `generatedCanvas${(new Date().toJSON().slice(0,10))}`,
       type: 'png',
       quality: 1
     });
@@ -35,18 +35,21 @@ import canvasToImage from "canvas-to-image";
   }
 
   function getColorArray(colors, arr){
-    /*console.log(colors[0].breakpoint);
-    console.log(arr[0]);*/
-    let colorArr = new Array (arr.length);
-    for (let index = 0; index < colorArr.length; index++) {
-      let currentColor = "#ffffff"; //{r:255, g:255, b:255, a:0};
-      colors.forEach(color => {
-        if (arr[index]>color.breakpoint) {
+    const colorsRGB = colors.map( color=>{
+      return {
+        value:hexToRgb(color.value),
+        breakpoint:color.breakpoint
+      }
+    });
+    let colorArr = arr.map( noise =>{
+      let currentColor = {r:255, g:255, b:255, a:255};
+      colorsRGB.forEach(color => {
+        if (noise>color.breakpoint) {
           currentColor= color.value;
         }       
       });
-      colorArr[index] = hexToRgb(currentColor); 
-    }
+      return currentColor;
+    });
     return colorArr;
   }
 
@@ -71,7 +74,7 @@ import canvasToImage from "canvas-to-image";
     data[index + 3] = color.a;
   }
 
-	function renderCanvas(settings){
+	async function renderCanvas(settings){
     const noise = updateNoise(settings);
     //setting dimensions
     const canvasWidth = settings.pixelsWidth;
@@ -99,7 +102,6 @@ import canvasToImage from "canvas-to-image";
     for (var i = 0; i < canvasWidth*canvasHeight*4; i+=4) {
       //offset = (y * id.width + x) * 4;
         drawPixel(i, colorArr[noiseIndex]);
-
       noiseIndex++;
     }
 

@@ -44,7 +44,8 @@ class Home extends React.Component {
       scale:2,
       transparency:true,
       grayScale:false,
-      tint: "#738d5f"
+      tint: "#738d5f",
+      isLoading: false
     }
   }
   componentDidMount(){
@@ -97,9 +98,10 @@ class Home extends React.Component {
     this.setState({colors}, ()=> this.renderCanvas() );   
   }
 
-  renderCanvas =()=>{
-    Render.renderCanvas(this.state);
+  async renderCanvas(){
+      Render.renderCanvas(this.state)
   }
+
   generateSeed(){
     const randomSeed = Math.random();
     this.setState({seed: randomSeed}, ()=> this.renderCanvas());
@@ -126,7 +128,6 @@ class Home extends React.Component {
           this.setState({...data}, ()=> this.renderCanvas());
        }
        reader.readAsText(file)
-
   }
 
   render () {
