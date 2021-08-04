@@ -4,6 +4,7 @@ import NoiseSettings from "./noiseSettings";
 import Separator from "./separator";
 import React from "react";
 import Render from "../noiseGeneration/render";
+import Validate from "../noiseGeneration/validate";
 import ColorsSettings from "./colorsSettings";
 
 class Home extends React.Component {
@@ -50,26 +51,32 @@ class Home extends React.Component {
     this.generateSeed();
   } 
   inputChangeHandler(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    if (Validate.validate(event.target.name, event.target.value)) {
+      this.setState({ [event.target.name]: event.target.value });
+    }
   } 
   checkboxChangeHandler(event) {
     this.setState({ [event.target.name]: event.target.checked });
   }
   
   inputUpdateCanvas(e){
-    this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
+    if (Validate(e.target.name, e.target.value)) {
+      this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
+    }
   }
   checkboxUpdateCanvas(e){
     this.setState({ [e.target.name]: e.target.checked }, ()=> this.renderCanvas());
   }
   colorUpdateCanvas(colorInput, breakpointInput,index){
-    let colors = [...this.state.colors];
-    let item = {
-      breakpoint: breakpointInput.value,
-      value: colorInput.value
-    };
-    colors[index] = item;
-    this.setState({colors}, ()=> this.renderCanvas() );
+    if (Validate('breakpoint', breakpointInput.value)) {
+      let colors = [...this.state.colors];
+      let item = {
+        breakpoint: breakpointInput.value,
+        value: colorInput.value
+      };
+      colors[index] = item;
+      this.setState({colors}, ()=> this.renderCanvas() );
+    }
   }
   addColor(){
     let colors = [...this.state.colors];
