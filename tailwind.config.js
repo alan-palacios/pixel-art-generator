@@ -23,6 +23,15 @@ module.exports = {
     },
     minWidth:{
       '1/5': '20%'
+    },
+    maxWidth:{
+      '80': '20rem'
+    },
+    minHeight:{
+      '80': '20rem'
+    },
+    maxHeight:{
+      '80': '20rem'
     }
   },
   variants: {
