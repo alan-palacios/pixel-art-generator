@@ -24,3 +24,8 @@ input:checked + div svg {
 body,html{
   @apply bg-gray-70;
 }
+
+canvas{
+  image-rendering: pixelated;
+   image-rendering: crisp-edges;
+}

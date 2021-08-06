@@ -6,7 +6,7 @@ function InputRange(props) {
       </span>
       <div className="flex space-x-5">
         <input type="text" value={props.value}  onChange={ e => props.inputChangeHandler(e)} name={props.name}
-              className="appearance-none w-1/5 mt-2 min-w-1/5 
+              className="appearance-none w-2/5 mt-2 min-w-1/5 
               bg-gray-50 h-10 rounded-lg px-3 text-gray-10 shadow-inner leading-tight
               focus:outline-none focus:ring  ring-gray-90" />
 

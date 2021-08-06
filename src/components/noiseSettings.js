@@ -56,18 +56,29 @@ function NoiseSettings(props) {
                           name="transparency"
                           checkboxChangeHandler={props.checkboxChangeHandler} size="w-40"/>             
             </div>
+            <InputRange label="X Offset" name="xOffset"  min={-1000} max={1000} step={0.0001} 
+                        value={props.noiseSettings.xOffset}
+                        inputChangeHandler={props.inputChangeHandler} />
+            <InputRange label="Y Offset" name="yOffset"  min={-1000} max={1000} step={0.0001} 
+                        value={props.noiseSettings.yOffset}
+                        inputChangeHandler={props.inputChangeHandler} />
           </div>
           <div className="w-1/2">
+            <InputRange label="Scale"  name="scale" min={-10} max={1000} step={1} 
+                        value={props.noiseSettings.scale}
+                        inputChangeHandler={props.inputChangeHandler}  />
             <InputRange label="Octaves"  name="octaves" min={1} max={15} step={1} 
                         value={props.noiseSettings.octaves}
                         inputChangeHandler={props.inputChangeHandler}  />
 
-            <InputRange label="Amplitude" name="amplitude" min={0.1} max={50} step={0.1} 
-                        value={props.noiseSettings.amplitude}
+            <InputRange label="Lacunarity" name="lacunarity" min={0} max={10} step={0.001} 
+                        value={props.noiseSettings.lacunarity}
                         inputChangeHandler={props.inputChangeHandler} />
-
-            <InputRange label="Persistence" name="persistence"  min={0.1} max={3} step={0.1} 
+            <InputRange label="Persistence" name="persistence"  min={0.001} max={3} step={0.001} 
                         value={props.noiseSettings.persistence}
+                        inputChangeHandler={props.inputChangeHandler} />
+            <InputRange label="Min Value" name="minValue"  min={-1} max={1} step={0.001} 
+                        value={props.noiseSettings.minValue}
                         inputChangeHandler={props.inputChangeHandler} />
           </div>
         </div>

@@ -1,20 +1,22 @@
-import validationData from "./validationData.json";
+import validationData from "./dataModels.json";
   function validate(name, value) {
-    if (validationData[name] == null) return true;
+    if (validationData[name] == null) return false;
     switch (validationData[name].type) {
       case "int":
         return validateInt(value, validationData[name].min, validationData[name].max);
       case "float":
         return validateFloat(value, validationData[name].min, validationData[name].max);
+      case "color":
+        return value;
       default:
-        return true
+        return false
     }
   }
 
   function validateInt(value, min, max) {
     if (isNumber(value) && value%1===0) {
       if (value>=min && value<=max) {
-        return true; 
+        return parseInt(value); 
       }
     } 
     return false;
@@ -23,7 +25,7 @@ import validationData from "./validationData.json";
   function validateFloat(value, min, max) {
     if (isNumber(value)) {
       if (value>=min && value<=max) {
-        return true; 
+        return parseFloat(value); 
       }
     } 
     return false;

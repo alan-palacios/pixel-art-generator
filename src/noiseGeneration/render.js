@@ -1,5 +1,5 @@
-import Perlin from "./perlin-noise";
 import canvasToImage from "canvas-to-image";
+var SimplexNoise = require('simplex-noise');
   var canvas;
   var ctx;
   var image;
@@ -44,7 +44,7 @@ import canvasToImage from "canvas-to-image";
     let colorArr = arr.map( noise =>{
       let currentColor = {r:255, g:255, b:255, a:255};
       colorsRGB.forEach(color => {
-        if (noise>color.breakpoint) {
+        if (noise>=color.breakpoint) {
           currentColor= color.value;
         }       
       });
@@ -75,6 +75,7 @@ import canvasToImage from "canvas-to-image";
   }
 
 	async function renderCanvas(settings){
+
     const noise = updateNoise(settings);
     //setting dimensions
     const canvasWidth = settings.pixelsWidth;
@@ -111,13 +112,51 @@ import canvasToImage from "canvas-to-image";
 
 
   const updateNoise = (settings) => {
-    Perlin.setSeed(settings.seed);
-    let noiseGen = Perlin.generatePerlinNoise(settings.pixelsWidth, settings.pixelsHeight, {
-      amplitude: settings.amplitude,
-      octaveCount: settings.octaves,
-      persistence: settings.persistence,
-    });
-    return noiseGen;
+    const simplex = new SimplexNoise(settings.seed);
+    let noiseArr=[];
+    let noiseIndex = 0;
+    for (let i = 0; i < settings.pixelsHeight; i++) {
+      for (let j = 0; j < settings.pixelsWidth; j++) {
+        noiseArr[noiseIndex] = evaluateCoords(j,i,settings, simplex);
+        noiseIndex++;
+      } 
+    }
+    return noiseArr;
   }
+
+  const evaluateCoords= (x,y, settings, simplex)=>{
+
+      //let maxAmp = 0
+      let amp = 1
+      let freq = 1;
+      let noise = 0
+      const midWidthX = (settings.pixelsWidth)/2;
+      const midWidthY = (settings.pixelsHeight)/2;
+      /*let octaveOffsets = [];
+      for (let i = 0; i < settings.octaves; i++) {
+        const offsetX =  + settings.xOffset;
+        const offsetY =  - settings.yOffset;
+        octaveOffsets[i] = [offsetX, offsetY];
+        //maxPossibleHeight += amplitude;
+        //amplitude *= persistance;
+      }*/
+
+      //add successively smaller, higher-frequency terms
+      for(let i = 0; i < settings.octaves; ++i){
+          let calcX =((x-midWidthX)/settings.scale+settings.xOffset/midWidthX)*freq;
+          let calcY =((y-midWidthY)/settings.scale+settings.yOffset/midWidthY)*freq;
+          noise += simplex.noise2D(calcX,calcY) * amp
+          //maxAmp += amp
+          amp *= settings.persistence
+          freq *= settings.lacunarity;
+      }
+
+      //take the average value of the iterations
+      //noise /= maxAmp
+      //normalize the result
+      noise = (noise + 1)*0.5
+      return Math.max(0, noise-settings.minValue);
+  }
+
   const Render = {renderCanvas, saveImage}
-  export default Render;
+    export default Render;

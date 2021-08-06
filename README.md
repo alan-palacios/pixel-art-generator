@@ -1,6 +1,4 @@
 # Pixel Art Generator
+Create pixel art assets based on simplex noise generation and height maps
 
-Create pixel art assets based on perlin noise generation and height maps
-
-## Credits
-made with [seeded-node-perlin-noise](https://github.com/aramperes/seeded-node-perlin-noise) fork from original [node-perlin-noise](https://github.com/andrewrk/node-perlin-noise)
+Made with [simplex-noise](https://github.com/jwagner/simplex-noise.js) package

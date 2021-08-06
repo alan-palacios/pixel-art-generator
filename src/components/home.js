@@ -22,10 +22,10 @@ class Home extends React.Component {
     this.removeColor = this.removeColor.bind(this);
     this.state = {
       seed: "seed",
-      pixelsWidth:600,
-      pixelsHeight:400,
-      octaves:7,
-      amplitude:4,
+      pixelsWidth:200,
+      pixelsHeight:200,
+      octaves:6,
+      lacunarity:1.7,
       persistence:0.6,
       colors:[
         {
@@ -41,7 +41,10 @@ class Home extends React.Component {
           value: "#c0dd5e"
         }
       ],
-      scale:2,
+      scale:10,
+      minValue:0.01,
+      xOffset:0,
+      yOffset:0,
       transparency:true,
       grayScale:false,
       tint: "#738d5f",
@@ -52,27 +55,27 @@ class Home extends React.Component {
     this.generateSeed();
   } 
   inputChangeHandler(event) {
-    if (Validate.validate(event.target.name, event.target.value)) {
-      this.setState({ [event.target.name]: event.target.value });
-    }
+    this.setState({ [event.target.name]: event.target.value });
   } 
   checkboxChangeHandler(event) {
     this.setState({ [event.target.name]: event.target.checked });
   }
   
   inputUpdateCanvas(e){
-    if (Validate(e.target.name, e.target.value)) {
-      this.setState({ [e.target.name]: e.target.value }, ()=> this.renderCanvas());
+    const value =Validate(e.target.name, e.target.value);
+    if (value!==false) {
+      this.setState({ [e.target.name]: value }, ()=> this.renderCanvas());
     }
   }
   checkboxUpdateCanvas(e){
     this.setState({ [e.target.name]: e.target.checked }, ()=> this.renderCanvas());
   }
   colorUpdateCanvas(colorInput, breakpointInput,index){
-    if (Validate('breakpoint', breakpointInput.value)) {
+    const value =Validate('breakpoint', breakpointInput.value);
+    if (value!==false) {
       let colors = [...this.state.colors];
       let item = {
-        breakpoint: breakpointInput.value,
+        breakpoint: value,
         value: colorInput.value
       };
       colors[index] = item;
