@@ -1,0 +1,13 @@
+{
+  "default":"Starry Sky",
+  "presets":[
+    {
+      "name": "Terrain",
+      "path": "islandSimplex.json"
+    },
+    {
+      "name": "Starry Sky",
+      "path": "starrySky.json"
+    }
+  ]
+}

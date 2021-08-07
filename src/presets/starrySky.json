@@ -1,0 +1,39 @@
+{
+  "seed": 0.21055914490113647,
+  "pixelsWidth": 200,
+  "pixelsHeight": 200,
+  "octaves": 7,
+  "lacunarity": 3.015,
+  "persistence": 0.757,
+  "colors": [
+    {
+      "breakpoint": 0,
+      "value": "#1e1e1e"
+    },
+    {
+      "breakpoint": 0.49,
+      "value": "#343543"
+    },
+    {
+      "breakpoint": 0.71,
+      "value": "#3e5b8c"
+    },
+    {
+      "breakpoint": 0.86,
+      "value": "#ad72ef"
+    },
+    {
+      "breakpoint": 1,
+      "value": "#f8e0f8"
+    }
+  ],
+  "scale": 55,
+  "minValue": 0.328,
+  "xOffset": 0,
+  "yOffset": 0,
+  "transparency": true,
+  "grayScale": false,
+  "tint": "#738d5f",
+  "isLoading": false,
+  "amplitude": 4
+}
