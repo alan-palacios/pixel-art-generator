@@ -1,15 +1,15 @@
 {
-  "seed":{
+  	"seed":{
 		"type":"float",
 		"min":0,
 		"max":100
 	},
-  "pixelsWidth":{
+  	"pixelsWidth":{
 		"type":"int",
 		"min":1,
 		"max":1920
 	},
-  "pixelsHeight":{
+  	"pixelsHeight":{
 		"type":"int",
 		"min":1,
 		"max":1080
@@ -36,7 +36,7 @@
 	},
 	"scale":{
 		"type":"float",
-		"min":-10,
+		"min":-1,
 		"max":1000
 	},
 	"xOffset":{
@@ -56,5 +56,10 @@
 	},
 	"tint":{
 		"type":"color"
+	},
+	"falloff":{
+		"type":"float",
+		"min":0,
+		"max":10
 	}
 }

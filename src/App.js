@@ -142,14 +142,14 @@ class App extends React.Component{
           <div className=" h-full flex flex-grow flex-nowrap px-40">
             {/* Left: image display and noise settings */}
             <div className="  w-3/5  p-10 overflow-hidde flex flex-col ">
-              <ImageDisplay  />
+              <ImageDisplay  {...this.state} inputChangeHandler={this.inputUpdateCanvas} />
               <NoiseSettings noiseSettings={this.state} 
                             inputChangeHandler={this.inputUpdateCanvas} 
                             checkboxChangeHandler={this.checkboxUpdateCanvas} 
                             colorChangeHandler={this.colorUpdateCanvas}
                             generateSeed={this.generateSeed}/>
               <pre className="block text-gray-10 my-10 p-10">
-                {JSON.stringify(this.state, null, 2)}
+                {/* JSON.stringify(this.state, null, 2) */}
               </pre>
             </div>
             <Separator/>

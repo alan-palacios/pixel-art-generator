@@ -5,6 +5,15 @@
   "octaves": 7,
   "lacunarity": 3.015,
   "persistence": 0.757,
+  "scale": 55,
+  "minValue": 0.328,
+  "xOffset": 0,
+  "yOffset": 0,
+  "transparency": true,
+  "grayScale": false,
+  "tint": "#738d5f",
+  "amplitude": 4,
+  "falloff":0,
   "colors": [
     {
       "breakpoint": 0,
@@ -26,14 +35,5 @@
       "breakpoint": 1,
       "value": "#f8e0f8"
     }
-  ],
-  "scale": 55,
-  "minValue": 0.328,
-  "xOffset": 0,
-  "yOffset": 0,
-  "transparency": true,
-  "grayScale": false,
-  "tint": "#738d5f",
-  "isLoading": false,
-  "amplitude": 4
+  ]
 }

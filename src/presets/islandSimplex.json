@@ -5,6 +5,14 @@
   "octaves": 5,
   "lacunarity": 2.641,
   "persistence": 0.512,
+  "scale": 200,
+  "minValue": 0.04,
+  "xOffset": 0,
+  "yOffset": 0,
+  "transparency": true,
+  "grayScale": false,
+  "tint": "#738d5f",
+  "falloff":0,
   "colors": [
     {
       "breakpoint": 0,
@@ -34,13 +42,5 @@
       "breakpoint": 1,
       "value": "#283816"
     }
-  ],
-  "scale": 200,
-  "minValue": 0.04,
-  "xOffset": 0,
-  "yOffset": 0,
-  "transparency": true,
-  "grayScale": false,
-  "tint": "#738d5f",
-  "isLoading": false
+  ]
 }

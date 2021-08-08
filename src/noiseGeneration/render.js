@@ -125,8 +125,6 @@ var SimplexNoise = require('simplex-noise');
   }
 
   const evaluateCoords= (x,y, settings, simplex)=>{
-
-      //let maxAmp = 0
       let amp = 1
       let freq = 1;
       let noise = 0
@@ -145,16 +143,22 @@ var SimplexNoise = require('simplex-noise');
       for(let i = 0; i < settings.octaves; ++i){
           let calcX =((x-midWidthX)/settings.scale+settings.xOffset/midWidthX)*freq;
           let calcY =((y-midWidthY)/settings.scale+settings.yOffset/midWidthY)*freq;
-          noise += simplex.noise2D(calcX,calcY) * amp
+
+          noise += simplex.noise2D(calcX,calcY) * amp//*falloff*settings.falloff
           //maxAmp += amp
           amp *= settings.persistence
           freq *= settings.lacunarity;
       }
+          let fx=(x-midWidthX)/settings.scale;
+          let fy=(y-midWidthY)/settings.scale;
+          const rSquare = fx*fx+fy*fy;
+          let falloff = 0; 
+          if(rSquare*rSquare*settings.falloff<=1) falloff = Math.pow(1-settings.falloff*rSquare*rSquare,2); 
 
       //take the average value of the iterations
       //noise /= maxAmp
       //normalize the result
-      noise = (noise + 1)*0.5
+      noise = (noise + 1)*0.5*falloff
       return Math.max(0, noise-settings.minValue);
   }
 
