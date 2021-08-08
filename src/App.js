@@ -149,7 +149,7 @@ class App extends React.Component{
                             colorChangeHandler={this.colorUpdateCanvas}
                             generateSeed={this.generateSeed}/>
               <pre className="block text-gray-10 my-10 p-10">
-                {/* JSON.stringify(this.state, null, 2) */}
+                { JSON.stringify(this.state, null, 2) }
               </pre>
             </div>
             <Separator/>
@@ -163,10 +163,10 @@ class App extends React.Component{
                               removeColor={this.removeColor}
                               addColor={this.addColor}/>
               <Separator vertical={true} />
-              <ImageSettings imageSettings={this.state} 
+              <ImageSettings scale={this.state.scale} 
                               inputChangeHandler={this.inputUpdateCanvas} 
                               checkboxChangeHandler={this.checkboxChangeHandler}
-                              download={Render.saveImage}
+                              download={()=>Render.saveImage(this.state.scale)}
                               exportSettings={this.exportSettings}
                               importSettings={this.importSettings}
                               forceRender={this.renderCanvas}/>

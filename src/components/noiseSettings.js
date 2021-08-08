@@ -64,8 +64,8 @@ function NoiseSettings(props) {
 
           </div>
           <div className="w-1/2">
-            <InputRange label="Scale"  name="scale" min={-1} max={1000} step={1} 
-                        value={props.noiseSettings.scale}
+            <InputRange label="Zoom"  name="zoom" min={-1} max={1000} step={1} 
+                        value={props.noiseSettings.zoom}
                         inputChangeHandler={props.inputChangeHandler}  />
             <InputRange label="Octaves"  name="octaves" min={1} max={15} step={1} 
                         value={props.noiseSettings.octaves}

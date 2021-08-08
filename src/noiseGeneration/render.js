@@ -12,18 +12,68 @@ var SimplexNoise = require('simplex-noise');
     }
   }
 
-  function saveImage(){
-    canvasToImage(canvas, {
+  function saveImage(scale){
+    var resizedCanvas =  resizeAndExportCanvas(scale);
+    canvasToImage(resizedCanvas, {
       name: `generatedCanvas${(new Date().toJSON().slice(0,10))}`,
       type: 'png',
       quality: 1
     });
   }
 
+  function resizeAndExportCanvas(scale){
+    var c = document.createElement('canvas');
+    c.width = canvas.width*scale;
+    c.height = canvas.height*scale;
+    // resize the new canvas
+    const cctx = c.getContext('2d');
+    cctx.webkitImageSmoothingEnabled = false;
+    cctx.mozImageSmoothingEnabled = false;
+    cctx.imageSmoothingEnabled = false;
+    cctx.drawImage(canvas, 0,0,canvas.width, canvas.height, 0,0,c.width, c.height);
+    return c;
+  }
+
+	async function renderCanvas(settings){
+
+    const noise = updateNoise(settings);
+    //setting dimensions
+    const canvasWidth = settings.pixelsWidth;
+    const canvasHeight = settings.pixelsHeight;
+
+    //init vars if required
+    initVars(canvasWidth, canvasHeight);
+    ctx.canvas.width  = canvasWidth;
+    ctx.canvas.height = canvasHeight;
+
+    //create image
+    image = ctx.createImageData(canvasWidth, canvasHeight);
+    data = image.data;
+    
+    //get respective color per pixel
+    let colorArr;
+    if (settings.grayScale) {
+      colorArr = getTintArray(settings.tint, noise);
+    } else {
+      colorArr = getColorArray(settings.colors, noise);
+    }
+
+    //setting each pixel
+    let noiseIndex = 0;
+    for (var i = 0; i < canvasWidth*canvasHeight*4; i+=4) {
+      //offset = (y * id.width + x) * 4;
+        drawPixel(i, colorArr[noiseIndex]);
+      noiseIndex++;
+    }
+
+    swapBuffer(); 
+  }
+
   function swapBuffer() {
     ctx.putImageData(image, 0, 0);
   }
 
+  //color process
   function hexToRgb(hex) {
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
@@ -74,43 +124,7 @@ var SimplexNoise = require('simplex-noise');
     data[index + 3] = color.a;
   }
 
-	async function renderCanvas(settings){
-
-    const noise = updateNoise(settings);
-    //setting dimensions
-    const canvasWidth = settings.pixelsWidth;
-    const canvasHeight = settings.pixelsHeight;
-
-    //init vars if required
-    initVars(canvasWidth, canvasHeight);
-    ctx.canvas.width  = canvasWidth;
-    ctx.canvas.height = canvasHeight;
-
-    //create image
-    image = ctx.createImageData(canvasWidth, canvasHeight);
-    data = image.data;
-    
-    //get respective color per pixel
-    let colorArr;
-    if (settings.grayScale) {
-      colorArr = getTintArray(settings.tint, noise);
-    } else {
-      colorArr = getColorArray(settings.colors, noise);
-    }
-
-    //setting each pixel
-    let noiseIndex = 0;
-    for (var i = 0; i < canvasWidth*canvasHeight*4; i+=4) {
-      //offset = (y * id.width + x) * 4;
-        drawPixel(i, colorArr[noiseIndex]);
-      noiseIndex++;
-    }
-
-    swapBuffer(); 
-    //ctx.putImageData(id, 0, 0);
-  }
-
-
+  //noise process
   const updateNoise = (settings) => {
     const simplex = new SimplexNoise(settings.seed);
     let noiseArr=[];
@@ -141,16 +155,16 @@ var SimplexNoise = require('simplex-noise');
 
       //add successively smaller, higher-frequency terms
       for(let i = 0; i < settings.octaves; ++i){
-          let calcX =((x-midWidthX)/settings.scale+settings.xOffset/midWidthX)*freq;
-          let calcY =((y-midWidthY)/settings.scale+settings.yOffset/midWidthY)*freq;
+          let calcX =((x-midWidthX)/settings.zoom+settings.xOffset/midWidthX)*freq;
+          let calcY =((y-midWidthY)/settings.zoom+settings.yOffset/midWidthY)*freq;
 
           noise += simplex.noise2D(calcX,calcY) * amp//*falloff*settings.falloff
           //maxAmp += amp
           amp *= settings.persistence
           freq *= settings.lacunarity;
       }
-          let fx=(x-midWidthX)/settings.scale;
-          let fy=(y-midWidthY)/settings.scale;
+          let fx=(x-midWidthX)/settings.zoom;
+          let fy=(y-midWidthY)/settings.zoom;
           const rSquare = fx*fx+fy*fy;
           let falloff = 0; 
           if(rSquare*rSquare*settings.falloff<=1) falloff = Math.pow(1-settings.falloff*rSquare*rSquare,2); 
