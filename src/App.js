@@ -175,7 +175,7 @@ class App extends React.Component{
                               generateSeed={this.generateSeed}
                               removeColor={this.removeColor}
                               addColor={this.addColor}/>
-              <Separator vertical={true} />
+              <Separator horizontal={true} />
               <ImageSettings scale={this.state.scale} 
                               inputChangeHandler={this.inputUpdateCanvas} 
                               checkboxChangeHandler={this.checkboxChangeHandler}

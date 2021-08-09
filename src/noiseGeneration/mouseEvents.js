@@ -49,14 +49,12 @@ function onMouseMove(e) {
 
 function onZoom(e) {
   e.preventDefault();
-  let calcZoom;
   if(e.deltaY > 0){    
     if(zoom>1)zoom-=1;
   }else{
     zoom+=1;
   }
-  calcZoom = Math.pow(zoom,2);
-  inputUpdateCanvas({target:{name:"zoom", value:calcZoom}}); 
+  inputUpdateCanvas({target:{name:"zoom", value:Math.pow(zoom,2)}}); 
 }
     
 const MouseEvents = {init}

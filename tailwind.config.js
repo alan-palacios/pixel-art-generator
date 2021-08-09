@@ -36,7 +36,11 @@ module.exports = {
   },
   variants: {
     extend: {
-      display: ['group-hover']
+      spacing:{
+        '100': '30rem'
+      },
+      display: ['group-hover'],
+      cursor: ['hover']
     },
   },
   plugins: [],
