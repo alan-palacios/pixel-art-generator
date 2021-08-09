@@ -41,6 +41,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@iconify/icons-fa-brands": "^1.1.1",
     "@iconify/icons-fa-solid": "^1.1.1",
     "@iconify/react": "^1.1.4",
     "autoprefixer": "^9.8.6",

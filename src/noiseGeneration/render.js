@@ -52,7 +52,7 @@ var SimplexNoise = require('simplex-noise');
     if (settings.grayScale) {
       colorArr = getTintArray(settings.tint, noise);
     } else {
-      colorArr = getColorArray(settings.colors, noise);
+      colorArr = getColorArray(settings.colors, noise, settings.transparency);
     }
 
     //setting each pixel
@@ -81,15 +81,16 @@ var SimplexNoise = require('simplex-noise');
     } : null;
   }
 
-  function getColorArray(colors, arr){
+  function getColorArray(colors, arr, transparency){
     const colorsRGB = colors.map( color=>{
       return {
         value:hexToRgb(color.value),
         breakpoint:color.breakpoint
       }
     });
+    let initialColor = {r:255, g:255, b:255, a:transparency?0:255};
     let colorArr = arr.map( noise =>{
-      let currentColor = {r:255, g:255, b:255, a:255};
+      let currentColor = initialColor;
       colorsRGB.forEach(color => {
         if (noise>=color.breakpoint) {
           currentColor= color.value;
