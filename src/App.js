@@ -24,7 +24,8 @@ class App extends React.Component{
     this.importSettings = this.importSettings.bind(this);
     this.addColor = this.addColor.bind(this);
     this.removeColor = this.removeColor.bind(this);
-    this.changeZoom = this.changeZoom.bind(this);
+    this.getState = this.getState.bind(this);
+    this.offsetsUpdateCanvas = this.offsetsUpdateCanvas.bind(this);
 
     //get presets data of json file
     const defaultPresetInfo = presetsData.presets.filter(preset =>{
@@ -38,9 +39,10 @@ class App extends React.Component{
       ...defaultPresetData
     }
   }
+  getState(){return this.state}
   componentDidMount(){
     const canvas = Render.init();
-    MouseEvents.init(canvas, this.changeZoom);
+    MouseEvents.init(canvas, this.getState, this.inputUpdateCanvas, this.offsetsUpdateCanvas);
     this.renderCanvas();
     //this.generateSeed();
   }
@@ -61,11 +63,11 @@ class App extends React.Component{
       ...defaultPresetData
     }, ()=> this.renderCanvas())
   }
-  changeZoom(dir){
-    const calcZoom = Math.pow( 0.02*this.state.zoom,2)+5;
-    const value =Validate("zoom", this.state.zoom+calcZoom*dir);
-    if (value!==false) {
-      this.setState({ zoom: value }, ()=> this.renderCanvas());
+  offsetsUpdateCanvas(x,y){
+    const valueX =Validate("xOffset", x);
+    const valueY =Validate("yOffset", y);
+    if (valueX!==false && valueY!==false) {
+      this.setState({ xOffset: valueX, yOffset: valueY }, ()=> this.renderCanvas());
     }
   }
   inputUpdateCanvas(e){

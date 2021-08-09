@@ -15,10 +15,10 @@ function NoiseSettings(props) {
         <div className="flex space-x-10" >
           <div className="w-1/2">
         <InputRange label="X Offset" name="xOffset"  min={-1000} max={1000} step={0.0001} 
-                  value={props.xOffset} onlyRange={true}
+                  value={props.noiseSettings.xOffset} onlyRange={true}
                   inputChangeHandler={props.inputChangeHandler} />
          <InputRange label="Y Offset" name="yOffset"  min={-1000} max={1000} step={0.0001} 
-                      value={props.yOffset} className="" onlyRange={true}
+                      value={props.noiseSettings.yOffset} className="" onlyRange={true}
                       inputChangeHandler={props.inputChangeHandler} />
             <div className="flex space-x-10" >
               <InputText label="Seed" name="seed" size="w-full"

@@ -37,7 +37,7 @@
 	"zoom":{
 		"type":"float",
 		"min":-1,
-		"max":1000
+		"max":10000
 	},
 	"xOffset":{
 		"type":"float",
