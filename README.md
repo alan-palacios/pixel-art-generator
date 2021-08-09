@@ -49,8 +49,10 @@ If you are going to use the image as game asset i recommend to keep scale in 1 b
 
 If you would like to modify the noise settings later without having to set each individual property you can export all of the current settings in a .json file. To import just select the same file.
 
-## Packages used
+## Credits
 
 The noise generation was made with [simplex-noise](https://github.com/jwagner/simplex-noise.js) package and for the falloff function i used f=(1-x*x)^2 which can be find [here](https://briansharpe.wordpress.com/2011/11/14/two-useful-interpolation-functions-for-noise-development/) as well as other attenuation functions  
 
- 
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details

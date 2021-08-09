@@ -5,11 +5,10 @@ var SimplexNoise = require('simplex-noise');
   var image;
   var data;
 
-  function initVars(){
-    if (canvas == null) {
-      canvas = document.getElementById('image');
-      ctx = canvas.getContext('2d');
-    }
+  function init(){
+    canvas = document.getElementById('image');
+    ctx = canvas.getContext('2d');
+    return canvas;
   }
 
   function saveImage(scale){
@@ -41,8 +40,6 @@ var SimplexNoise = require('simplex-noise');
     const canvasWidth = settings.pixelsWidth;
     const canvasHeight = settings.pixelsHeight;
 
-    //init vars if required
-    initVars(canvasWidth, canvasHeight);
     ctx.canvas.width  = canvasWidth;
     ctx.canvas.height = canvasHeight;
 
@@ -176,5 +173,5 @@ var SimplexNoise = require('simplex-noise');
       return Math.max(0, noise-settings.minValue);
   }
 
-  const Render = {renderCanvas, saveImage}
+  const Render = {renderCanvas, saveImage, init}
     export default Render;

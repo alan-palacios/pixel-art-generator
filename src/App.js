@@ -7,6 +7,7 @@ import ImageSettings from "./components/imageSettings";
 import NoiseSettings from "./components/noiseSettings";
 import Separator from "./components/separator";
 import Render from "./noiseGeneration/render";
+import MouseEvents from './noiseGeneration/mouseEvents';
 import Validate from "./noiseGeneration/validate";
 import ColorsSettings from "./components/colorsSettings";
 
@@ -23,6 +24,7 @@ class App extends React.Component{
     this.importSettings = this.importSettings.bind(this);
     this.addColor = this.addColor.bind(this);
     this.removeColor = this.removeColor.bind(this);
+    this.changeZoom = this.changeZoom.bind(this);
 
     //get presets data of json file
     const defaultPresetInfo = presetsData.presets.filter(preset =>{
@@ -37,6 +39,8 @@ class App extends React.Component{
     }
   }
   componentDidMount(){
+    const canvas = Render.init();
+    MouseEvents.init(canvas, this.changeZoom);
     this.renderCanvas();
     //this.generateSeed();
   }
@@ -56,6 +60,13 @@ class App extends React.Component{
       selectedPresetName:defaultPresetInfo.name,
       ...defaultPresetData
     }, ()=> this.renderCanvas())
+  }
+  changeZoom(dir){
+    const calcZoom = Math.pow( 0.02*this.state.zoom,2)+5;
+    const value =Validate("zoom", this.state.zoom+calcZoom*dir);
+    if (value!==false) {
+      this.setState({ zoom: value }, ()=> this.renderCanvas());
+    }
   }
   inputUpdateCanvas(e){
     const value =Validate(e.target.name, e.target.value);
