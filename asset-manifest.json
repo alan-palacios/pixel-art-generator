@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/pixel-art-generator/static/css/main.b6b6a8f6.chunk.css",
+    "main.js": "/pixel-art-generator/static/js/main.e27f77ae.chunk.js",
+    "main.js.map": "/pixel-art-generator/static/js/main.e27f77ae.chunk.js.map",
+    "runtime-main.js": "/pixel-art-generator/static/js/runtime-main.01ce692d.js",
+    "runtime-main.js.map": "/pixel-art-generator/static/js/runtime-main.01ce692d.js.map",
+    "static/js/2.74bef640.chunk.js": "/pixel-art-generator/static/js/2.74bef640.chunk.js",
+    "static/js/2.74bef640.chunk.js.map": "/pixel-art-generator/static/js/2.74bef640.chunk.js.map",
+    "static/js/3.8e648156.chunk.js": "/pixel-art-generator/static/js/3.8e648156.chunk.js",
+    "static/js/3.8e648156.chunk.js.map": "/pixel-art-generator/static/js/3.8e648156.chunk.js.map",
+    "index.html": "/pixel-art-generator/index.html",
+    "static/css/main.b6b6a8f6.chunk.css.map": "/pixel-art-generator/static/css/main.b6b6a8f6.chunk.css.map",
+    "static/js/2.74bef640.chunk.js.LICENSE.txt": "/pixel-art-generator/static/js/2.74bef640.chunk.js.LICENSE.txt",
+    "static/media/index.css": "/pixel-art-generator/static/media/Tysla.786e9761.otf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.01ce692d.js",
+    "static/js/2.74bef640.chunk.js",
+    "static/css/main.b6b6a8f6.chunk.css",
+    "static/js/main.e27f77ae.chunk.js"
+  ]
+}
