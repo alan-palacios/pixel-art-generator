@@ -184,9 +184,9 @@ class App extends React.Component{
                             checkboxChangeHandler={this.checkboxUpdateCanvas} 
                             colorChangeHandler={this.colorUpdateCanvas}
                             generateSeed={this.generateSeed}/>
-              <pre className="block text-gray-10 my-10 p-10">
+              {/*<pre className="block text-gray-10 my-10 p-10">
                 { JSON.stringify(this.state, null, 2) }
-              </pre>
+              </pre>*/}
             </div>
             <Separator/>
             {/* Right: colors settings and download, import and export */}
