@@ -1,19 +1,19 @@
 {
   "seed": 0.38870613695005674,
-  "pixelsWidth": 300,
-  "pixelsHeight": 300,
+  "pixelsWidth": 360,
+  "pixelsHeight": 200,
   "octaves": 5,
   "lacunarity": 2.641,
   "persistence": 0.512,
-  "zoom": 200,
+  "zoom": 147.43145750507622,
   "minValue": 0.04,
-  "xOffset": 0,
-  "yOffset": 0,
+  "xOffset": -12,
+  "yOffset": 22,
   "transparency": true,
   "grayScale": false,
   "tint": "#738d5f",
-  "falloff":0,
-  "scale":2,
+  "falloff": 0,
+  "scale": 2,
   "colors": [
     {
       "breakpoint": 0,
@@ -43,5 +43,6 @@
       "breakpoint": 1,
       "value": "#283816"
     }
-  ]
+  ],
+  "amplitude": 4
 }

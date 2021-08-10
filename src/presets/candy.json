@@ -1,0 +1,40 @@
+{
+  "seed": 0.38870613695005674,
+  "pixelsWidth": 100,
+  "pixelsHeight": 100,
+  "octaves": 5,
+  "lacunarity": 1.247,
+  "persistence": 0.334,
+  "zoom": 83.5786437626905,
+  "minValue": 0.04,
+  "xOffset": 308,
+  "yOffset": 33,
+  "transparency": true,
+  "grayScale": false,
+  "tint": "#738d5f",
+  "falloff": 10,
+  "scale": 2,
+  "colors": [
+    {
+      "breakpoint": 0.4,
+      "value": "#933a63"
+    },
+    {
+      "breakpoint": 0.54,
+      "value": "#ff95b1"
+    },
+    {
+      "breakpoint": 0.66,
+      "value": "#ff88a9"
+    },
+    {
+      "breakpoint": 0.73,
+      "value": "#ffc4cf"
+    },
+    {
+      "breakpoint": 0.77,
+      "value": "#ffecf0"
+    }
+  ],
+  "amplitude": 4
+}

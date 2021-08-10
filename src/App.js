@@ -24,6 +24,7 @@ class App extends React.Component{
     this.importSettings = this.importSettings.bind(this);
     this.addColor = this.addColor.bind(this);
     this.removeColor = this.removeColor.bind(this);
+    this.downloadImage = this.downloadImage.bind(this);
     this.getState = this.getState.bind(this);
     this.offsetsUpdateCanvas = this.offsetsUpdateCanvas.bind(this);
 
@@ -81,7 +82,8 @@ class App extends React.Component{
   }
   colorUpdateCanvas(colorInput, breakpointInput,index){
     const value =Validate('breakpoint', breakpointInput.value);
-    if (value!==false) {
+    const isColor = this.isColor(colorInput.value);
+    if (value!==false && isColor) {
       let colors = [...this.state.colors];
       let item = {
         breakpoint: value,
@@ -89,6 +91,17 @@ class App extends React.Component{
       };
       colors[index] = item;
       this.setState({colors}, ()=> this.renderCanvas() );
+    }
+  }
+  isColor(strColor){
+    var s = new Option().style;
+    s.color = strColor;
+    var test1 = s.color === strColor;
+    var test2 = /^#[0-9A-F]{6}$/i.test(strColor);
+    if(test1 === true || test2 === true){
+      return true;
+    } else{
+      return false;
     }
   }
   addColor(){
@@ -116,6 +129,16 @@ class App extends React.Component{
     colors.splice(index, 1);
     this.setState({colors}, ()=> this.renderCanvas() );   
   }
+  downloadImage(){
+    const valueX =Validate("scale", this.state.scale*this.state.pixelsWidth);
+    const valueY =Validate("scale", this.state.scale*this.state.pixelsHeight);
+    if (valueX!==false && valueY!==false) {
+      Render.saveImage(this.state.scale)
+    }else{
+      console.log('try with a smaller scale');
+    }
+  }
+
   async renderCanvas(){
       Render.renderCanvas(this.state);
   }
@@ -179,7 +202,7 @@ class App extends React.Component{
               <ImageSettings scale={this.state.scale} 
                               inputChangeHandler={this.inputUpdateCanvas} 
                               checkboxChangeHandler={this.checkboxChangeHandler}
-                              download={()=>Render.saveImage(this.state.scale)}
+                              download={this.downloadImage}
                               exportSettings={this.exportSettings}
                               importSettings={this.importSettings}
                               forceRender={this.renderCanvas}/>

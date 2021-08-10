@@ -8,7 +8,7 @@ function ColorsSettings(props) {
 
   function renderColors(){
     return props.noiseSettings.colors.map( (color,index) =>(
-            <ColorPicker key={index} min={0} max={1} step={0.01} size="" labelShow="hidden" 
+            <ColorPicker key={index} min={0} max={1.3} step={0.01} size="" labelShow="hidden" 
                         dataKey={index}
                         color={color.value} 
                         breakpoint={color.breakpoint}

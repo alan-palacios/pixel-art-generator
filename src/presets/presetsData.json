@@ -1,13 +1,37 @@
 {
-  "default":"Terrain",
+  "default":"Islands",
   "presets":[
     {
-      "name": "Terrain",
-      "path": "islandSimplex.json"
+      "name": "Islands",
+      "path": "islands.json"
     },
     {
-      "name": "Starry Sky",
-      "path": "starrySky.json"
+      "name": "Single Island",
+      "path": "singleIsland.json"
+    },
+    {
+      "name": "Galaxy",
+      "path": "galaxy.json"
+    },
+    {
+      "name": "Moss",
+      "path": "moss.json"
+    },
+    {
+      "name": "Cloud",
+      "path": "cloud.json"
+    },
+    {
+      "name": "Candy",
+      "path": "candy.json"
+    },
+    {
+      "name": "Explosion",
+      "path": "explosion.json"
+    },
+    {
+      "name": "Cave Wall",
+      "path": "caveWall.json"
     }
   ]
 }
