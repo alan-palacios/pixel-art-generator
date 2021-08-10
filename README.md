@@ -15,8 +15,14 @@ You can adjust a lot of settings to get the desired result which could be:
 ## Presets
 
 In case you want a quick result you can select one of the presets for:
-- Terrain
-- Starry Sky
+- Islands
+- Single Island
+- Galaxy
+- Moss
+- Cloud
+- Candy
+- Explosion
+- Cave wall
 
 
 ## Noise Settings

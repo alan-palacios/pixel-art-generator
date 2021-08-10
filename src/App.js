@@ -174,7 +174,7 @@ class App extends React.Component{
     return (
       <div className="bg-gray-70 h-full">
         <Navbar list={presetsData.presets} selectedPresetName={this.state.selectedPresetName} onChangePreset={this.changePreset}/>
-        <div className="p-20 h-screen">
+        <div className="p-20 h-full">
           <div className=" h-full flex flex-grow flex-nowrap px-40">
             {/* Left: image display and noise settings */}
             <div className="  w-3/5  p-10 overflow-hidde flex flex-col ">
