@@ -18,12 +18,12 @@ function ColorsSettings(props) {
   }
 
   return (
-    <div className="p-5 mb-5 w-full h-auto overflow-y-auto">
+    <div className=" mb-5 w-full h-auto overflow-y-auto">
       <Title title="Colors Settings" />
       <div className=" font-montserrat-m">
         <div className="flex pt-10 text-gray-10">
           <label className="w-full">Breakpoint</label>
-          <span className="min-w-1/5 mr-0 m-auto flex pl-5">
+          <span className="min-w-2/5 mr-0 m-auto flex pl-5">
             <label className="m-auto ">Color</label>
           </span>
         </div>

@@ -21,7 +21,7 @@ function renderLabelIcon(){
       return  (
         <div className="flex content-between">
           <div className="w-full">
-            <span className="m-auto mr-5 text-lg font-montserrat-b">{props.label}</span>
+            <span className="m-auto mr-5 md:text-lg font-montserrat-b">{props.label}</span>
           </div>
           <div className="">
             <Icon icon={props.icon} style={{fontSize: '24px'}} className="m-auto mr-0" />
@@ -33,14 +33,14 @@ function renderLabelIcon(){
               <Icon icon={props.icon} style={{fontSize: '24px'}} className="m-auto" />
             </div>);
     }else if(props.label && props.icon == null){
-      return(<span className="m-auto mr-5 text-lg font-montserrat-b">{props.label}</span>);
+      return(<span className="m-auto mr-5 md:text-lg font-montserrat-b">{props.label}</span>);
     }
   }
 
   function renderList() {
        return (
        <div className="absolute top-10 right-0 hidden group-hover:block  
-                      bg-gray-90 filter drop-shadow-lg shadow rounded-lg">
+                      bg-gray-90 filter drop-shadow-lg shadow rounded-lg text-sm md:text-base">
         <ul>
           {props.list.map(item=>{
             return (

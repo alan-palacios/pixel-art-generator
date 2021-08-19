@@ -35,7 +35,7 @@ class ColorPicker extends React.Component {
             <input type="text" value={this.props.color}  
                   id={`${this.props.dataKey}color`}
                   onChange={ () => this.props.colorChangeHandler(this.colorInput, this.breakpointText, this.props.dataKey)} 
-                  className="appearance-none w-full h-1/2 absolute bottom-0 text-sm
+                  className="appearance-none w-full h-1/2 absolute bottom-0 text-sm hidden sm:block
                   bg-gray-50 rounded-b-lg text-gray-10 shadow-inner leading-tight
                   focus:outline-none focus:ring  ring-gray-90" />
             <input type="color" id={`${this.props.dataKey}colorP`}
