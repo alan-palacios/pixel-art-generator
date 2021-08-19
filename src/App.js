@@ -174,7 +174,7 @@ class App extends React.Component{
     return (
       <div className="bg-gray-70 h-full">
         <Navbar list={presetsData.presets} selectedPresetName={this.state.selectedPresetName} onChangePreset={this.changePreset}/>
-          <div className=" h-full md:flex pt-16">
+          <div className=" h-full md:flex pt-16 pb-20 md:px-10 xl:px-40 lg:px-24">
             {/* Left: image display and noise settings */}
             <div className="w-full  md:w-3/5  p-10 pb-0 overflow-hidde flex flex-col ">
               <ImageDisplay  {...this.state} inputChangeHandler={this.inputUpdateCanvas} />
@@ -189,7 +189,7 @@ class App extends React.Component{
             </div>
             <Separator/>
             {/* Right: colors settings and download, import and export */}
-            <div className="h-full  w-full  md:w-2/5  p-10 pb-0 overflow-hidde flex flex-col ">
+            <div className="h-full  w-full  md:w-2/5  p-10 md:pl-0 pb-0 overflow-hidde flex flex-col ">
               <ColorsSettings noiseSettings={this.state} 
                               inputChangeHandler={this.inputUpdateCanvas} 
                               checkboxChangeHandler={this.checkboxUpdateCanvas} 

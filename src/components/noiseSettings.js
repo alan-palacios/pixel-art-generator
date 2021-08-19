@@ -18,7 +18,7 @@ function NoiseSettings(props) {
    if(showMoreOpt){
         return(
           <React.Fragment>
-            <div className="flex space-x-8 md:space-x-10" >
+            <div className="flex space-x-8 lg:space-x-10" >
               <div className="w-1/2">
                   <InputRange label="X Offset" name="xOffset"  min={-1000} max={1000} step={0.0001} 
                     value={props.noiseSettings.xOffset} onlyRange={true}
@@ -58,12 +58,12 @@ function NoiseSettings(props) {
       </div>
 
       <Separator horizontal={true} />
-      <div className="pt-0 font-montserrat-m text-xs">
+      <div className="pt-0 font-montserrat-m text-xs md:text-sm xl:text-base">
         {renderOptions()}
 
-        <div className="flex space-x-8 md:space-x-10" >
+        <div className="flex space-x-8 lg:space-x-10" >
           <div className="w-1/2">
-            <div className="flex space-x-2 md:space-x-10" >
+            <div className="flex space-x-2 lg:space-x-10" >
               <InputText label="Seed" name="seed" size="w-full"
                       value={props.noiseSettings.seed}
                       inputChangeHandler={props.inputChangeHandler}/>
@@ -71,7 +71,7 @@ function NoiseSettings(props) {
             </div>
 
 
-            <div className="flex space-x-2 md:space-x-10" >
+            <div className="flex space-x-2 lg:space-x-10" >
               <InputText label="Width" name="pixelsWidth"
                         value={props.noiseSettings.pixelsWidth}
                         inputChangeHandler={props.inputChangeHandler}/>
@@ -80,13 +80,13 @@ function NoiseSettings(props) {
                         inputChangeHandler={props.inputChangeHandler}/>
             </div>
 
-            <div className="flex space-x-2 md:space-x-10" >
-              <div className="flex space-x-2 md:space-x-10 w-2/3">
+            <div className="flex space-x-2 lg:space-x-10" >
+              <div className="flex space-x-2 lg:space-x-10 w-2/3">
                 <InputCheckbox label="Grayscale" 
                           value={props.noiseSettings.grayScale} 
                           name="grayScale"
                           checkboxChangeHandler={props.checkboxChangeHandler} size=""/>
-                <div className={`pt-2 w-1/3 relative `}>
+                <div className={`pt-2 w-1/3 md:w-10 relative `}>
                   <span className="text-gray-10 block text-center">
                     Tint
                   </span>
